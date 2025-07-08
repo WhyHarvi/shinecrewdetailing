@@ -71,12 +71,7 @@ function Hero() {
 
           <p className="subtext">"Precision, Passion, Perfection."</p>
         </div>
-        <div className="right-bubbles flex translate-x-[-97%]  absolute -z-10 translate-y-[-10%] ">
-          <img src="/bubbles.png" alt="" />
-        </div>
-        <div className="left-bubbles flex translate-x-[90%] absolute -z-10 translate-y-2/4">
-          <img src="/bubbles.png" alt="" />
-        </div>
+        
         <div className="hero-subtext">
           <p className=" justify-start flex">Best Detailing Services in Town</p>
           <h1 className="subtext">
@@ -102,7 +97,7 @@ function Hero() {
           ref={videoRef}
         ></video>
       </div>
-      <div className="arrow absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
+      <div className="arrow absolute bottom-8 right-[100px] z-20 -translate-x-1/2 animate-bounce">
         <div className="h-8 w-5 rounded-full border-2 border-white">
           <div className="mx-auto mt-1 h-2 w-1 animate-scroll rounded-full bg-white"></div>
         </div>

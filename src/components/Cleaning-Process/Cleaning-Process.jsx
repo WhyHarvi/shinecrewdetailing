@@ -93,7 +93,7 @@ export default function CleaningProcess() {
           "
         >
           <img
-            src="./car.png"
+            src="/car.png"
             alt="Car"
             className="w-full h-auto object-contain"
           />
