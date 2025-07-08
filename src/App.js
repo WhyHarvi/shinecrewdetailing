@@ -11,13 +11,12 @@ import LocationSection from './components/Location.jsx/Location';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
 import ScrollToTopButton from './components/ui/ScrollToTopButton';
-import HomePage from './components/Home/Home';
 function App() {
   return (
     <div>
       <Navbar />
-      <HomePage />
-      <div className="h-[1100px]"></div>
+      <Hero />
+      <Features />
       <Us />
       <BentoGridDemo />
       <CleaningProcess />
