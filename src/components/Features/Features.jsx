@@ -98,7 +98,7 @@ export default function Features() {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-12 bg-white text-center">
+    <section className="absolute top-[100%] left-1/2 transform -translate-x-1/2 w-[90%] z-[50] bg-transparent text-center px-4 md:px-12">
       <h1 className="text-4xl font-bold mb-2 text-red-500">Packages Starts From $99</h1>
       <p className="text-gray-600 text-sm md:text-base mb-4">
         Our professional detailing covers both <strong>Cars</strong> and{" "}

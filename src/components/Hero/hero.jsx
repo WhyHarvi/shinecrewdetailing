@@ -1,109 +1,110 @@
-import AppNavbar from "../Navbar/Navbar";
-import Navbar from "../Navbar/Navbar";
-import "./Hero.css";
 import InteractiveHoverButton from "../ui/hover-buuton";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
 import { useRef } from "react";
-import gsap from "gsap";
-import { use, useEffect } from "react";
-import SplitType from "split-type";
+import useMediaQuery from "react-responsive";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useMediaQuery } from "react-responsive";
-import { scale } from "motion/react";
-import ScrollToTopButton from "../ui/ScrollToTopButton";
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
-function Hero() {
-  const videoRef = useRef(null);
+export default function Hero() {
+  const videoRef = useRef();
+
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
-  useEffect(() => {
-    const heroSplit = new SplitType(".title", { types: "chars, words" });
-    const paragrapghSplit = new SplitType(".subtext", { types: "lines" });
-    const video = videoRef.current;
-    gsap.from(heroSplit.chars, {
-      yPercent: 100,
-      opacity: 0,
-      stagger: 0.05,
-      duration: 1.8,
-      ease: "expo.out",
+  useGSAP(() => {
+    const heroSplit = new SplitText(".title", {
+      type: "chars,words",
     });
 
-    gsap.from(paragrapghSplit.lines, {
+    const paragraphSplit = new SplitText(".paragraph", {
+      type: "lines",
+    });
+
+    gsap.from(heroSplit.words, {
       yPercent: 100,
       opacity: 0,
-      stagger: 0.05,
-      duration: 1.8,
+      duration: 1,
       ease: "expo.out",
+      stagger: 0.1,
+    });
+
+    gsap.from(paragraphSplit.lines, {
+      yPercent: 100,
+      opacity: 0,
+      duration: 1.5,
+      ease: "expo.out",
+      stagger: 0.1,
       delay: 1,
     });
-
     gsap
       .timeline({
         scrollTrigger: {
-          trigger: ".hero-container",
+          trigger: "#hero",
           start: "top top",
           end: "bottom top",
           scrub: true,
         },
       })
-      .to(".right-bubbles", { y: -400 }, 0)
-      .to(".left-bubbles", { y: 800 }, 0);
+      .to(".right-leaf", { y: 400 }, 0)
+      .to(".left-leaf", { y: -200 }, 0)
+      .to(".arrow", { y: 200 }, 0);
+
+    const startValue = isMobile ? "top 10%" : "center 50%";
+    const endValue = isMobile ? "150% top" : "bottom top";
+
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "video",
+        start: startValue,
+        end: endValue,
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    videoRef.current.onloadedmetadata = () => {
+      tl.to(videoRef.current, {
+        currentTime: videoRef.current.duration,
+      });
+    };
   }, []);
 
   return (
-    <div className="hero-container" id="home">
-      <AppNavbar className="absolute top-0 z-50" />
-      <div className="hero-overlay">
-        <img
-          className="-z-10 absolute w-full opacity-50"
-          src="./images/noise.png"
-          alt=""
-        />
-      </div>
-      <div className="hero-image"></div>
-      <div className="hero-content">
-        <div className="hero-text">
-          <h1
-            id="hero-title"
-            className=" title gradient-text text-5xl font-bold uppercase"
-          >
-            SHINE CREW DETAILING
-          </h1>
+    <>
+      <section id="hero" className="relative w-full h-screen z-[10]">
+        <h1 className="title text-4xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white absolute top-[25%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4 leading-tight w-[70%] z-10">
+          SHINE CREW DETAILING
+        </h1>
+        <p className="text-md sm:text-sm md:text-md lg:text-xl font-regular text-white absolute top-[32%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4 w-[70%] z-10">
+          "Precision, Passion, Perfection."
+        </p>
+        <p className=" text-md sm:text-sm md:text-md lg:text-xl font-regular text-white absolute top-[66%] left-[0%]  transform  text-left px-4 w-[40%] z-10">
+          Best Detailing Services in Town
+        </p>
+        <p className="paragraph text-md sm:text-sm md:text-md lg:text-xl text-white font-semibold absolute top-[70%] left-[0%]  transform  text-left px-4 w-[40%] z-10">
+          We Detail Every Vehicle Wheather It's a Car, Truck, or SUV with
+          precision and care.
+        </p>
 
-          <p className="subtext">"Precision, Passion, Perfection."</p>
+        <div>
+          <video
+            ref={videoRef}
+            src="/output.mp4"
+            playsInline
+            preload="auto"
+            muted
+            className="video w-full h-full object-cover absolute inset-0"
+          ></video>
         </div>
-        
-        <div className="hero-subtext">
-          <p className=" justify-start flex">Best Detailing Services in Town</p>
-          <h1 className="subtext">
-            We Detail Every Vehicle Wheather It's a Car, Truck, <br /> or SUV
-            with precision and care.
-          </h1>
-        </div>
-        <div className="hero-buttons">
-          <InteractiveHoverButton>
-            <a href="#contact">Book Appointment</a>
+        <div className="absolute bottom-28 left-36 transform -translate-x-1/2 z-10">
+          <InteractiveHoverButton   className="text-white">
+            <a href="#contact">
+              Contact Us
+              </a>
           </InteractiveHoverButton>
         </div>
-      </div>
-      <div className="video w-full md:h-[80%] h-1/2 absolute bottom-0 left-0 md:object-contain object-bottom object-cover">
-        <video
-          src="./output.mp4"
-          muted
-          playsInline
-          loop
-          autoPlay
-          className="video w-full h-full object-cover"
-          preload="auto"
-          ref={videoRef}
-        ></video>
-      </div>
-      <div className="arrow absolute bottom-8 right-[100px] z-20 -translate-x-1/2 animate-bounce">
-        <div className="h-8 w-5 rounded-full border-2 border-white">
-          <div className="mx-auto mt-1 h-2 w-1 animate-scroll rounded-full bg-white"></div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
-
-export default Hero;

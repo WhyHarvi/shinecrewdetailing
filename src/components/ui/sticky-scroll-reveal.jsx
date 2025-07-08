@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { cn } from "../lib/utils.js";
 
 
+
 export const StickyScroll = ({ content, contentClassName }) => {
   const [activeCard, setActiveCard] = React.useState(0);
   const ref = useRef(null);

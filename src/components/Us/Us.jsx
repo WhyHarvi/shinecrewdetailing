@@ -167,12 +167,17 @@ export default function Us() {
           </p>
 
           <div className="flex flex-wrap gap-4 pt-8">
-            <button className="bg-red-500 text-white px-6 py-3 rounded-lg shadow hover:bg-red-600 transition">
-              Book Your Shine
-            </button>
-            <button className="border border-red-500 text-red-500 px-6 py-3 rounded-lg hover:bg-red-500 hover:text-white transition">
-              Learn More
-            </button>
+            <a href="#contact">
+              <button className="bg-red-500 text-white px-6 py-3 rounded-lg shadow hover:bg-red-600 transition">
+                Book Your Shine
+              </button>
+            </a>
+
+            <a href="#socials">
+              <button className="border border-red-500 text-red-500 px-6 py-3 rounded-lg hover:bg-red-500 hover:text-white transition">
+                Learn More
+              </button>
+            </a>
           </div>
         </div>
       </div>
